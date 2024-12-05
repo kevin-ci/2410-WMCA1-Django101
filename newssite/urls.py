@@ -20,6 +20,9 @@ from articles import views as article_views
 
 urlpatterns = [
     path('', article_views.all_articles, name="all_articles"),
+    path('articles/create/', article_views.create_article, name="create_article"),
+    path('articles/edit/<article_id>', article_views.edit_article, name="edit_article"),
+    path('articles/delete/<article_id>', article_views.delete_article, name="delete_article"),
     path('articles/<article_id>/', article_views.view_article, name="view_article"),
     path('admin/', admin.site.urls),
 ]
