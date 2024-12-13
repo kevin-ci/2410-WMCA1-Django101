@@ -18,6 +18,8 @@ from django.contrib import admin
 from django.urls import path
 from articles import views as article_views
 from bookings import views as booking_views
+from todo import views as task_views
+
 
 urlpatterns = [
     path('', article_views.all_articles, name="home"),
@@ -28,5 +30,11 @@ urlpatterns = [
 
     path('bookings/create/', booking_views.create_booking, name="create_booking"),
     path('bookings/edit/<booking_id>', booking_views.edit_booking, name="edit_booking"),
+
+    path('tasks/', task_views.view_tasks, name="view_tasks"),
+    path('tasks/create', task_views.create_task, name="create_task"),
+    path('tasks/toggle/<task_id>', task_views.toggle_task_status, name="toggle_task"),
+
+
     path('admin/', admin.site.urls),
 ]
