@@ -1,0 +1,47 @@
+{% extends 'base.html' %}
+
+{% block content %}
+
+<h2>Create a new booking</h2>
+
+<form method="post">
+    {% csrf_token %}
+    {{ form.as_p }}
+    <p style="font-weight: bold; margin-top: 10px;">Total Price: <span id="total-price-display">£0</span></p>
+    <input type="hidden" id="total-price" name="total_price" value="0">
+    <button type="submit">Book</button>
+</form>
+
+
+{% endblock content %}
+
+{% block additional_scripts %}
+<script>
+    document.addEventListener('DOMContentLoaded', function () {
+        const startDateInput = document.getElementById('id_start_date');
+        const endDateInput = document.getElementById('id_end_date');
+        const totalPriceDisplay = document.getElementById('total-price-display');
+        const totalPriceInput = document.getElementById('total-price');
+        const pricePerNight = 100; // Hardcoded price per night
+
+        function calculateTotalPrice() {
+            const startDate = new Date(startDateInput.value);
+            const endDate = new Date(endDateInput.value);
+
+            if (!isNaN(startDate) && !isNaN(endDate) && startDate <= endDate) {
+                const timeDifference = endDate - startDate;
+                const days = timeDifference / (1000 * 60 * 60 * 24);
+                const totalPrice = days * pricePerNight;
+                totalPriceDisplay.textContent = `£${totalPrice}`;
+                totalPriceInput.value = totalPrice; // Update hidden input value
+            } else {
+                totalPriceDisplay.textContent = '£0';
+                totalPriceInput.value = 0; // Reset hidden input value
+            }
+        }
+
+        startDateInput.addEventListener('input', calculateTotalPrice);
+        endDateInput.addEventListener('input', calculateTotalPrice);
+    });
+</script>
+{% endblock additional_scripts %}

@@ -17,12 +17,16 @@ Including another URLconf
 from django.contrib import admin
 from django.urls import path
 from articles import views as article_views
+from bookings import views as booking_views
 
 urlpatterns = [
-    path('', article_views.all_articles, name="all_articles"),
+    path('', article_views.all_articles, name="home"),
     path('articles/create/', article_views.create_article, name="create_article"),
     path('articles/edit/<article_id>', article_views.edit_article, name="edit_article"),
     path('articles/delete/<article_id>', article_views.delete_article, name="delete_article"),
     path('articles/<article_id>/', article_views.view_article, name="view_article"),
+
+    path('bookings/create/', booking_views.create_booking, name="create_booking"),
+    path('bookings/edit/<booking_id>', booking_views.edit_booking, name="edit_booking"),
     path('admin/', admin.site.urls),
 ]

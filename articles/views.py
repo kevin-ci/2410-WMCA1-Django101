@@ -10,7 +10,7 @@ def superuser_required(view_func):
     def _wrapped_view(request, *args, **kwargs):
         if not request.user.is_superuser:
             messages.error(request, "You do not have permission to access that page.")
-            return redirect('all_articles')
+            return redirect('home')
         return view_func(request, *args, **kwargs)
     return _wrapped_view
 
@@ -40,7 +40,7 @@ def create_article(request):
         if article_form.is_valid():
             article_form.save()
             messages.success(request, "Article created successfully!")
-            return redirect('all_articles')
+            return redirect('home')
 
     else: 
         # for the GET request (i.e. user types url into browser or clicks a link)
@@ -59,7 +59,7 @@ def edit_article(request, article_id):
         if article_form.is_valid():
             article_form.save()
             messages.success(request, "Article updated successfully!")
-            return redirect('all_articles')
+            return redirect('home')
 
     else: 
         # for the GET request (i.e. user types url into browser or clicks a link)
@@ -76,6 +76,6 @@ def delete_article(request, article_id):
     if request.method == "POST":
         article.delete()
         messages.success(request, "Article deleted successfully!")
-        return redirect('all_articles')
+        return redirect('home')
     else:
         return render(request, 'articles/delete_article.html')
