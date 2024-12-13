@@ -19,6 +19,7 @@ from django.urls import path
 from articles import views as article_views
 from bookings import views as booking_views
 from todo import views as task_views
+from reviews import views as review_views
 
 
 urlpatterns = [
@@ -35,6 +36,7 @@ urlpatterns = [
     path('tasks/create', task_views.create_task, name="create_task"),
     path('tasks/toggle/<task_id>', task_views.toggle_task_status, name="toggle_task"),
 
+    path('reviews/create', review_views.create_movie_review, name="create_movie_review"),
 
     path('admin/', admin.site.urls),
 ]
